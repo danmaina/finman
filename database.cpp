@@ -14,7 +14,7 @@ DataBase::DataBase()
 
 void DataBase::initialize_database_tables()
 {
-    // tables: accounts, currencies, exchange_rates, categories, payees, budget, days, months, incomes, expenses, transaction_typeS
+    // tables: accounts, currencies, exchange_rates, categories, payees, budget, days, months, incomes, expenses, transaction_types
 
     if (!db.open()) {
             QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -29,7 +29,10 @@ void DataBase::initialize_database_tables()
     createCurrenciesTable.exec("CREATE TABLE IF NOT EXISTS currencies("
                                "currency_id INTEGER PRIMARY KEY, "
                                "currency_code VARCHAR, "
-                               "currency_name TEXT UNIQUE)");
+                               "currency_name TEXT UNIQUE, "
+                               "created_on DATETIME, "
+                               "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL"
+                               ")");
 
     // Initialize exchange_rates table
     QSqlQuery createExchangeRatesTable;
@@ -39,6 +42,8 @@ void DataBase::initialize_database_tables()
                                   "base_currency_id INTEGER, "
                                   "exchange_currency_id INTEGER, "
                                   "exchange_rate DECIMAL(10,2), "
+                                  "created_on DATETIME, "
+                                  "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, "
                                   "FOREIGN KEY(base_currency_id) REFERENCES currencies(currency_id), "
                                   "FOREIGN KEY(exchange_currency_id) REFERENCES currencies(currency_id)"
                                   ")");
@@ -55,6 +60,8 @@ void DataBase::initialize_database_tables()
                              "account_balance DECIMAL(10,2), "
                              "account_host_organization_name VARCHAR, "
                              "currency_id INTEGER, "
+                             "created_on DATETIME, "
+                             "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, "
                              "FOREIGN KEY(currency_id) REFERENCES currencies(currency_id)"
                              ")");
 
@@ -63,7 +70,9 @@ void DataBase::initialize_database_tables()
 
     createCategoriesTable.exec("CREATE TABLE IF NOT EXISTS categories("
                           "category_id INTEGER PRIMARY KEY, "
-                          "category_name TEXT UNIQUE"
+                          "category_name TEXT UNIQUE, "
+                          "created_on DATETIME, "
+                          "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL"
                           ")");
 
     // Initialize payees table
@@ -71,18 +80,74 @@ void DataBase::initialize_database_tables()
 
     createPayeesTable.exec("CREATE TABLE IF NOT EXISTS payees("
                            "payee_id INTEGER PRIMARY KEY, "
-                           "payee_name TEXT UNIQUE)");
+                           "payee_name TEXT UNIQUE, "
+                           "created_on DATETIME, "
+                           "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL"
+                           ")");
 
-    // Initialize Budgets table
+    // Initialize budgets table
     QSqlQuery createBudgetsTable;
 
     createBudgetsTable.exec("CREATE TABLE IF NOT EXISTS budgets("
                             "budget_id INTEGER PRIMARY KEY, "
                             "category_id INTEGER, "
+                            "account_id INTEGER, "
+                            "transaction_type_id INTEGER, "
+                            "month_id INTEGER, "
                             "amount DECIMAL(10,2), "
                             "month INTEGER, "
-                            "recurrent INTEGER"
+                            "created_on DATETIME, "
+                            "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, "
+                            "FOREIGN KEY (categrory_id) REFERENCES categories(category_id), "
+                            "FOREIGN KEY (account_id) REFERENECES accounts(account_id), "
+                            "FOREIGN KEY (transaction_type_id) REFERENECES transaction_types(transaction_type_id), "
+                            "FOREIGN KEY (month_id) REFERENCES months(month_id)"
                             ")");
+
+    // Initialize days table
+    QSqlQuery createDaysTable;
+
+    createDaysTable.exec("CREATE TABLE IF NOT EXISTS days("
+                         "day_id INTEGER PRIMARY KEY, "
+                         "day VARCHAR, "
+                         "created_on DATETIME, "
+                         "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL"
+                         ")");
+
+    // Initialize months table
+    QSqlQuery createMonthsTable;
+
+    createMonthsTable.exec("CREATE TABLE IF NOT EXISTS months("
+                           "month_id INTEGER PRIMARY KEY, "
+                           "month VARCHAR, "
+                           "created_on DATETIME, "
+                           "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL"
+                           ")");
+
+    // Initialize transaction_types table
+    QSqlQuery createTransactionTypesTable;
+
+    createTransactionTypesTable.exec("CREATE TABLE IF NOT EXIST transaction_types("
+                                     "transaction_type_id INTEGER PRIMARY KEY,"
+                                     "transaction_type VARCHAR UNIQUE"
+                                     "created_on DATETIME, "
+                                     "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL"
+                                     ")");
+
+    // Initialize transactions table
+    QSqlQuery createTransactionsTable;
+
+    createTransactionsTable.exec("CREATE TABLE IF NOT EXISTS transactions("
+                                 "transaction_id INTEGER PRIMARY KEY, "
+                                 "account_id INTEGER, "
+                                 "transaction_type_id INTEGER, "
+                                 "amount DECIMAL(10,2), "
+                                 "created_on DATETIME, "
+                                 "updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, "
+                                 "FOREIGN KEY (account_id) REFERENECES accounts(account_id), "
+                                 "FOREIGN KEY (transaction_type_id) REFERENCES transaction_types(transaction_type_id)"
+                                 ")");
+
 }
 
 
