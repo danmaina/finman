@@ -8,7 +8,7 @@
 DataBase::DataBase()
 {
    db = QSqlDatabase::addDatabase("QSQLITE");
-   db.setDatabaseName("finman.db");
+   db.setDatabaseName("./finman.db");
    db.open();
 }
 
@@ -147,6 +147,9 @@ void DataBase::initialize_database_tables()
                                  "FOREIGN KEY (account_id) REFERENECES accounts(account_id), "
                                  "FOREIGN KEY (transaction_type_id) REFERENCES transaction_types(transaction_type_id)"
                                  ")");
+
+    QMessageBox::information(nullptr, QString("Info"), QString("Database Initialized Successfully"), QMessageBox::Ok);
+    db.close();
 
 }
 

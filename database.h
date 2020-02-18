@@ -6,9 +6,9 @@ class DataBase
 {
 public:
     DataBase();
+    void initialize_database_tables();
 
 private:
-    void initialize_database_tables();
 
     QSqlDatabase db;
 };
