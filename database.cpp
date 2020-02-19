@@ -4,6 +4,8 @@
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QVariant>
+#include <QDebug>
 
 DataBase::DataBase()
 {
@@ -148,8 +150,33 @@ void DataBase::initialize_database_tables()
                                  "FOREIGN KEY (transaction_type_id) REFERENCES transaction_types(transaction_type_id)"
                                  ")");
 
-    QMessageBox::information(nullptr, QString("Info"), QString("Database Initialized Successfully"), QMessageBox::Ok);
+    qDebug()<<"Database Initialized Successfully";
+
     db.close();
+
+}
+
+int DataBase::check_accounts()
+{
+    if (!db.open()) {
+            QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
+                QObject::tr("Unable to establish an SQLite database connection.\n"
+                            "Click Ok to exit."), QMessageBox::Ok);
+            return 0;
+        }
+
+    QSqlQuery countAccounts;
+
+    countAccounts.exec("SELECT COUNT(*) FROM accounts;");
+
+    int count;
+
+    while(countAccounts.next()) {
+       QVariant accountCount  = countAccounts.value(0);
+       count = accountCount.toInt();
+    }
+
+    return count;
 
 }
 

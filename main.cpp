@@ -17,10 +17,13 @@ int main(int argc, char *argv[])
     DataBase db;
     db.initialize_database_tables();
 
-    // TODO: Use the database to determine which page to show
-
-    // Show the home page
-    h.show();
-
+    // Use the database to determine which page to show
+    if (db.check_accounts() > 0) {
+        // Show Home page
+        h.show();
+    } else {
+        // Show start up page
+        f.show();
+    }
     return a.exec();
 }

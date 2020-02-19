@@ -7,6 +7,7 @@ class DataBase
 public:
     DataBase();
     void initialize_database_tables();
+    int check_accounts();
 
 private:
 

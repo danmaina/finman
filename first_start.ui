@@ -40,14 +40,14 @@ color:white;</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="newDatabaseButton">
       <property name="text">
        <string>New</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="openDBButton">
       <property name="text">
        <string>Open</string>
       </property>

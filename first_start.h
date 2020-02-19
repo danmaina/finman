@@ -15,6 +15,11 @@ public:
     explicit First_Start(QWidget *parent = nullptr);
     ~First_Start();
 
+private slots:
+    void on_openDBButton_clicked();
+
+    void on_newDatabaseButton_clicked();
+
 private:
     Ui::First_Start *ui;
 };
