@@ -1,5 +1,6 @@
 #include "first_start.h"
 #include "ui_first_start.h"
+#include "createaccounts.h"
 
 First_Start::First_Start(QWidget *parent) :
     QDialog(parent),
@@ -22,6 +23,10 @@ void First_Start::on_openDBButton_clicked()
 
 void First_Start::on_newDatabaseButton_clicked()
 {
-    // TODO: Navigate user to create accounts
-    // TODO: Once created successfully display overview page on the home page.
+    // Navigate user to create an account
+    CreateAccounts *accounts = new CreateAccounts();
+    accounts->show();
+
+    this->close();
+
 }

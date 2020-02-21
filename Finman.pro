@@ -16,17 +16,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    createaccounts.cpp \
     database.cpp \
     first_start.cpp \
     homepage.cpp \
     main.cpp
 
 HEADERS += \
+    createaccounts.h \
     database.h \
     first_start.h \
     homepage.h
 
 FORMS += \
+    createaccounts.ui \
     first_start.ui \
     homepage.ui
 
