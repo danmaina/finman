@@ -156,6 +156,14 @@ void DataBase::initialize_database_tables()
 
 }
 
+bool DataBase::open_new_database(QString path) {
+
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(path);
+    return db.open();
+
+}
+
 int DataBase::check_accounts()
 {
     if (!db.open()) {
