@@ -1,60 +1,67 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <v-container>
+        <v-navigation-drawer
+                v-model="drawer"
+                :color="color"
+                :expand-on-hover="expandOnHover"
+                :mini-variant="miniVariant"
+                :right="right"
+                fixed
+                permanent
+                dark
+        >
+            <v-list
+                    dense
+                    nav
+                    class="py-0"
+            >
+                <v-divider></v-divider>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+                <v-list-item
+                        v-for="item in menus"
+                        :key="item.title"
+                        link
+                >
+                    <v-list-item-icon>
+                        <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+                    <v-list-item-content>
+                        <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+        <v-container fluid class="col-10">
+            <v-row>
+                <router-view/>
+            </v-row>
+        </v-container>
+    </v-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 
-export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
+    export default {
+        name: 'App',
+        data: () => ({
+            drawer: true,
+            menus: [
+                {title: 'Overview', icon: 'mdi-view-dashboard'},
+                {title: 'Budget', icon: 'mdi-align-vertical-bottom'},
+            ],
+            color: 'dark',
+            colors: [
+                'primary',
+                'black',
+                'success',
+                'red',
+                'teal',
+            ],
+            right: false,
+            miniVariant: true,
+            expandOnHover: true,
+            background: false,
+        }),
+    };
 </script>
