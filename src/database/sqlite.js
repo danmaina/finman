@@ -26,7 +26,7 @@ const init = () => {
         "currency_rate_id INTEGER PRIMARY KEY AUTOINCREMENT," +
         "base_currency_id INTEGER, " +
         "compared_currency_id INTEGER, " +
-        "rate DECIMAL(10, 2), " +
+        "rate DECIMAL(15, 2), " +
         "created_at DATETIME, " +
         "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, " +
         "FOREIGN KEY (base_currency_id) REFERENCES currencies(currency_id), " +
@@ -37,13 +37,65 @@ const init = () => {
         "account_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "currency_id INTEGER, " +
         "account_name TEXT UNIQUE, " +
-        "amount DECIMAL(10, 2), " +
+        "amount DECIMAL(15, 2), " +
         "created_at DATETIME, " +
         "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, " +
         "FOREIGN KEY (currency_id) REFERENCES currencies(currency_id)" +
         ")";
 
-    let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery];
+    let createPayeesQuery = "CREATE TABLE IF NOT EXISTS payees(" +
+        "payee_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "payee_name TEXT UNIQUE, " +
+        "created_at DATETIME, " +
+        "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP" +
+        ")";
+
+    let createCategoryTypesQuery = "CREATE TABLE IF NOT EXISTS categoryTypes(" +
+        "category_type_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "category_type TEXT UNIQUE," +
+        "created_at DATETIME, " +
+        "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP" +
+        ")";
+
+    let createCategoriesQuery = "CREATE TABLE IF NOT EXISTS categories(" +
+        "category_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "category_name TEXT UNIQUE, " +
+        "category_type_id INTEGER, " +
+        "created_at DATETIME, " +
+        "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+        "FOREIGN KEY (category_type_id) REFERENCES categoryTypes(category_type_id)" +
+        ")";
+
+    let createTransactionModesQuery = "CREATE TABLE IF NOT EXISTS transactionModes(" +
+        "transaction_mode_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "transaction_mode TEXT UNIQUE, " +
+        "created_at DATETIME, " +
+        "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP " +
+        ")";
+
+    let createTransactionsQuery = "CREATE TABLE IF NOT EXISTS transactions(" +
+        "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        "payee_id INTEGER, " +
+        "transaction_mode_id INTEGER, " +
+        "account_id INTEGER, " +
+        "category_id INTEGER, " +
+        "currency_id INTEGER, " +
+        "amount DECIMAL(15, 2), " +
+        "description TEXT, " +
+        "created_at DATETIME, " +
+        "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, " +
+        "FOREIGN KEY (payee_id) REFERENCES payees(payee_id), " +
+        "FOREIGN KEY (transaction_mode_id) REFERENCES transactionModes(transaction_mode_id), " +
+        "FOREIGN KEY (account_id) REFERENCES accounts(account_id), " +
+        "FOREIGN KEY (category_id) REFERENCES categories(category_id), " +
+        "FOREIGN KEY (currency_id) REFERENCES currencies(currency_id) " +
+        ")";
+
+    // TODO: Add budgeting
+    // TODO: Add Stocks and investments
+    // TODO: Add Asset financial management
+
+    let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery, createTransactionsQuery, createPayeesQuery, createCategoryTypesQuery, createCategoriesQuery, createTransactionModesQuery];
 
     for (const query of initQueries) {
         db.run(query, [], (err) => {
@@ -54,12 +106,6 @@ const init = () => {
             }
         });
     }
-
-    db.close((err) => {
-        if (err) {
-            console.log("Error closing Db Connection: ", err.message())
-        }
-    });
 
 };
 

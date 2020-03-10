@@ -7,6 +7,8 @@ import db from './database/sqlite'
 Vue.config.productionTip = false;
 db.init();
 
+// fixme: When app starts the DB file is created but the tables are not created until second run
+
 new Vue({
   router,
   vuetify,
