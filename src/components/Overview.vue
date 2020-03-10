@@ -1,12 +1,22 @@
 <template>
-      <h1>Hello From Overview</h1>
+      <v-container fluid>
+            <v-row class="dark">
+
+            </v-row>
+      </v-container>
 </template>
 
 <script>
-  export default {
-    name: 'home',
+      export default {
+            name: 'home',
 
-    data: () => ({
-    }),
-  }
+            data: () => ({}),
+      }
 </script>
+
+<style scoped>
+      .dark {
+            background-color: #333;
+            color: white;
+      }
+</style>

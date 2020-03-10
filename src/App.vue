@@ -41,7 +41,6 @@
 </template>
 
 <script>
-
     export default {
         name: 'App',
         data: () => ({
@@ -49,6 +48,7 @@
             menus: [
                 {title: 'Overview', icon: 'mdi-view-dashboard'},
                 {title: 'Budget', icon: 'mdi-align-vertical-bottom'},
+                {title: 'Reports', icon: 'mdi-trending-up'},
             ],
             color: 'dark',
             colors: [
