@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="dark">
         <v-navigation-drawer
                 v-model="drawer"
                 :color="color"
@@ -9,6 +9,7 @@
                 fixed
                 permanent
                 dark
+                app
         >
             <v-list
                     dense
@@ -21,6 +22,7 @@
                         v-for="item in menus"
                         :key="item.title"
                         link
+                        :to="item.route"
                 >
                     <v-list-item-icon>
                         <v-icon>{{ item.icon }}</v-icon>
@@ -33,9 +35,7 @@
             </v-list>
         </v-navigation-drawer>
         <v-container fluid class="col-10">
-            <v-row>
                 <router-view/>
-            </v-row>
         </v-container>
     </v-container>
 </template>
@@ -46,9 +46,9 @@
         data: () => ({
             drawer: true,
             menus: [
-                {title: 'Overview', icon: 'mdi-view-dashboard'},
-                {title: 'Budget', icon: 'mdi-align-vertical-bottom'},
-                {title: 'Reports', icon: 'mdi-trending-up'},
+                {title: 'Overview', icon: 'mdi-view-dashboard', route: '/'},
+                {title: 'Budget', icon: 'mdi-align-vertical-bottom', route: '/budget'},
+                {title: 'Reports', icon: 'mdi-trending-up', route: '/reports'},
             ],
             color: 'dark',
             colors: [
@@ -65,3 +65,14 @@
         }),
     };
 </script>
+
+<style>
+    .dark {
+        background-color: #333333;
+        color: white;
+        height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+</style>

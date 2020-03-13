@@ -91,6 +91,7 @@ const init = () => {
         "FOREIGN KEY (currency_id) REFERENCES currencies(currency_id) " +
         ")";
 
+    // TODO: Add recurrent transactions
     // TODO: Add budgeting
     // TODO: Add Stocks and investments
     // TODO: Add Asset financial management
