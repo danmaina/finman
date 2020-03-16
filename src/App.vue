@@ -1,5 +1,5 @@
 <template>
-    <v-container class="dark">
+    <v-app>
         <v-navigation-drawer
                 v-model="drawer"
                 :color="color"
@@ -34,14 +34,22 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        <v-container fluid class="col-10">
+        <v-content>
+            <v-container
+                    class="fill-height"
+                    fluid
+            >
                 <router-view/>
-        </v-container>
-    </v-container>
+            </v-container>
+        </v-content>
+    </v-app>
 </template>
 
 <script>
     export default {
+        created() {
+            this.$vuetify.theme.dark = true
+        },
         name: 'App',
         data: () => ({
             drawer: true,
