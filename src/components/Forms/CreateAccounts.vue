@@ -1,12 +1,14 @@
 <template>
-    <v-form>
-        <v-text-field dark dense outlined :label="account.placeholders.accountNamePlaceHolder" required
-                      :value="account.accountName"/>
-        <v-select dark dense outlined :label="account.placeholders.accountCurrencyPlaceHolder" required
-                  :value="account.accountCurrency"/>
-        <v-text-field dark dense outlined type="number" required :value="account.accountBalance"/>
-        <v-btn dark small class="v-btn v-btn--flat v-btn--right">Create</v-btn>
-    </v-form>
+    <v-container fluid>
+        <v-form>
+            <v-text-field dark dense outlined :label="account.placeholders.accountNamePlaceHolder" required
+                          :value="account.accountName"/>
+            <v-select dark dense outlined :label="account.placeholders.accountCurrencyPlaceHolder" required
+                      :value="account.accountCurrency"/>
+            <v-text-field dark dense outlined type="number" required :value="account.accountBalance"/>
+            <v-btn dark small class="v-btn v-btn--flat v-btn--right">Create</v-btn>
+        </v-form>
+    </v-container>
 </template>
 
 <script>
