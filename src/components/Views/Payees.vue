@@ -1,10 +1,12 @@
 <template>
-    <v-container></v-container>
+    <v-container fluid>
+        <h1>Payees</h1>
+    </v-container>
 </template>
 
 <script>
     export default {
-        name: "Budget"
+        name: "Payees"
     }
 </script>
 

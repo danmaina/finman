@@ -24,7 +24,7 @@
                         link
                         :to="item.route"
                 >
-                    <v-list-item-icon>
+                    <v-list-item-icon :title="item.title">
                         <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
 
@@ -55,6 +55,10 @@
             drawer: true,
             menus: [
                 {title: 'Overview', icon: 'mdi-view-dashboard', route: '/'},
+                {title: 'Accounts', icon: 'mdi-bank', route: '/accounts'},
+                {title: 'Transactions', icon: 'mdi-cash', route: '/transactions'},
+                {title: 'Categories', icon: 'mdi-briefcase', route: '/categories'},
+                {title: 'Payees', icon: 'mdi-account', route: '/payees'},
                 {title: 'Budget', icon: 'mdi-align-vertical-bottom', route: '/budget'},
                 {title: 'Reports', icon: 'mdi-trending-up', route: '/reports'},
             ],
@@ -68,7 +72,7 @@
             ],
             right: false,
             miniVariant: true,
-            expandOnHover: true,
+            expandOnHover: false,
             background: false,
         }),
     };

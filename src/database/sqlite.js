@@ -14,6 +14,7 @@ const db = new sqlite3.Database(dbPath,
 
 const init = () => {
 
+    // Initialize Tables
     let createCurrenciesQuery = "CREATE TABLE IF NOT EXISTS currencies(" +
         "currency_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "currency_name TEXT, " +
@@ -91,6 +92,8 @@ const init = () => {
         "FOREIGN KEY (currency_id) REFERENCES currencies(currency_id) " +
         ")";
 
+    // Populate Tables with default values
+
     // TODO: Add recurrent transactions
     // TODO: Add budgeting
     // TODO: Add Stocks and investments
@@ -101,7 +104,7 @@ const init = () => {
     for (const query of initQueries) {
         db.run(query, [], (err) => {
             if (err) {
-                console.log("Error Creating table: ", err.message, "query is: ", query)
+                console.error("Error Creating table: ", err.message, "query is: ", query)
             } else {
                 console.log("Table was created using query: ", query)
             }

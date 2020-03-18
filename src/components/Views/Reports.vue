@@ -1,5 +1,7 @@
 <template>
-    <v-container></v-container>
+    <v-container fluid>
+        <h1>Reports</h1>
+    </v-container>
 </template>
 
 <script>

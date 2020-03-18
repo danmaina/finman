@@ -32,10 +32,10 @@
 
             data: () => ({
                   appBarIcons: {
-                        newTransaction: 'mdi-cash-multiple',
+                        newTransaction: 'mdi-cash-plus',
                         newAccount: 'mdi-bank-plus',
                         newCategory: 'mdi-briefcase-plus',
-                        newPayee: 'mdi-briefcase-account',
+                        newPayee: 'mdi-account-multiple-plus',
                   }
             }),
             methods: {
