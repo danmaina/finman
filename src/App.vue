@@ -36,7 +36,6 @@
         </v-navigation-drawer>
         <v-content>
             <v-container
-                    class="fill-height"
                     fluid
             >
                 <router-view/>

@@ -97,7 +97,7 @@ const init = () => {
     // TODO: Add recurrent transactions
     // TODO: Add budgeting
     // TODO: Add Stocks and investments
-    // TODO: Add Asset financial management
+    // TODO: Add Asset financial management -> Account Types {Bank, Asset, Cash}
 
     let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery, createTransactionsQuery, createPayeesQuery, createCategoryTypesQuery, createCategoriesQuery, createTransactionModesQuery];
 
