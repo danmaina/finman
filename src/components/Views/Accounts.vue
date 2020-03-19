@@ -44,8 +44,7 @@
                     {text: 'Account Name', value: 'account_name'},
                     {text: 'Currency Name', value: 'currency_name', sortable: false},
                     {text: 'ISO Code', value: 'iso_code'},
-                    {text: 'Balance', value: 'amount'},
-                    {text: 'action', sortable: false}
+                    {text: 'Balance', value: 'amount'}
                 ]
             }
         })
