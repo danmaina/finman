@@ -14,7 +14,7 @@ const currencies = () => {
         }
 
         rows.forEach((row) => {
-            currencies.push(row)
+            currencies.push({currency_id: row.currency_id, currency_name: row.currency_name, iso_code: row.iso_code})
         });
     });
 
@@ -23,16 +23,16 @@ const currencies = () => {
 
 const currencyByISOCode = (isoCode) => {
 
-    let query = "SELECT currency_id, currency_name FROM currencies where isoCode = ?";
+    let query = "SELECT currency_id, currency_name, iso_code FROM currencies where iso_code = ?";
 
-    let currency = '';
+    let currency = {};
 
     db.get(query, [isoCode], (err, row) => {
         if (err) {
             console.error(err.message)
         }
 
-        currency = row;
+        currency = {currency_id: row.currency_id, currency_name: row.currency_name, iso_code: row.iso_code};
     });
 
     return currency;
@@ -50,7 +50,13 @@ const accounts = () => {
         }
 
         rows.forEach((row) => {
-            accounts.push(row)
+            accounts.push({
+                account_id: row.account_id,
+                account_name: row.account_name,
+                currency_name: row.currency_name,
+                iso_code: row.iso_code,
+                amount: row.amount
+            })
         });
     });
 
@@ -68,7 +74,11 @@ const categories = () => {
         }
 
         rows.forEach((row) => {
-            categories.push(row)
+            categories.push({
+                category_id: row.category_id,
+                category_name: row.category_name,
+                category_type: row.category_type
+            })
         });
     });
 
@@ -87,7 +97,7 @@ const payees = () => {
         }
 
         rows.forEach((row) => {
-            payees.push(row)
+            payees.push({payee_id: row.payee_id, payee_name: row.payee_name})
         });
     });
 
@@ -106,7 +116,17 @@ const transactions = (lowerLimit, upperLimit) => {
         }
 
         rows.forEach((row) => {
-            transactions.push(row)
+            transactions.push({
+                transaction_id: row.transaction_id,
+                amount: row.amount,
+                description: row.description,
+                payee_name: row.payee_name,
+                transaction_mode_id: row.transaction_mode_id,
+                account_name: row.account_name,
+                currency_name: row.currency_name,
+                iso_code: row.iso_code,
+                category_name: row.category_name
+            })
         });
     });
 

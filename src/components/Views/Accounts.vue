@@ -19,7 +19,10 @@
                     :sort-desc="[false, false, true, false]"
                     :search="search"
                     multi-sort
+                    dense
+                    v-model="accounts"
             >
+
             </v-data-table>
         </v-flex>
     </v-container>
@@ -44,7 +47,7 @@
                     {text: 'Account Name', value: 'account_name'},
                     {text: 'Currency Name', value: 'currency_name', sortable: false},
                     {text: 'ISO Code', value: 'iso_code'},
-                    {text: 'Balance', value: 'amount'}
+                    {text: 'Balance', value: 'amount'},
                 ]
             }
         })
