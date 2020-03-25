@@ -21,10 +21,19 @@
                     multi-sort
                     dense
                     v-model="accounts"
-            >
-
-            </v-data-table>
+            />
         </v-flex>
+        <v-app-bar absolute dark dense bottom>
+            <v-btn small dark justify="center" class="primary ml-4 v-btn--flat">
+                <v-icon title="New Account">{{appBarIcons.create}}</v-icon>
+            </v-btn>
+            <v-btn small dark color="orange" justify="center" class="ml-4 v-btn--flat">
+                <v-icon title="Update Record">{{appBarIcons.edit}}</v-icon>
+            </v-btn>
+            <v-btn small dark color="red" class=" ml-4 v-btn--flat">
+                <v-icon title="Delete Record">{{appBarIcons.delete}}</v-icon>
+            </v-btn>
+        </v-app-bar>
     </v-container>
 </template>
 
@@ -39,6 +48,11 @@
             console.log("Retrieved Accounts: ", this.accounts);
         },
         data: () => ({
+            appBarIcons: {
+                create: 'mdi-bank-plus',
+                edit: 'mdi-pencil-outline',
+                delete: 'mdi-delete-outline',
+            },
             search: '',
             accounts: [],
             table: {
