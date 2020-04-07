@@ -20,12 +20,11 @@
                     :search="search"
                     multi-sort
                     dense
-                    v-model="accounts"
             />
         </v-flex>
         <v-app-bar absolute dark dense bottom>
             <v-btn small dark justify="center" class="primary ml-4 v-btn--flat">
-                <v-icon title="New Account">{{appBarIcons.create}}</v-icon>
+                <v-icon title="New Account" @click="navigateToCreateAccount">{{appBarIcons.create}}</v-icon>
             </v-btn>
             <v-btn small dark color="orange" justify="center" class="ml-4 v-btn--flat">
                 <v-icon title="Update Record">{{appBarIcons.edit}}</v-icon>
@@ -64,7 +63,18 @@
                     {text: 'Balance', value: 'amount'},
                 ]
             }
-        })
+        }),
+        methods: {
+            navigateToCreateAccount() {
+                this.$router.push({name: 'create_account'})
+            },
+            navigateToEditAccount() {
+
+            },
+            navigateToDeleteAccount() {
+
+            }
+        }
     }
 </script>
 

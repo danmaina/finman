@@ -63,6 +63,24 @@ const accounts = () => {
     return accounts
 };
 
+const createAccount = (accountName, currencyId, amount) => {
+    let query = "INSERT INTO accounts(currency_id, account_name, amount, created_at) VALUES(?, ?, ?, ?)"
+
+    let result = 0;
+
+    db.run(query, [currencyId, accountName, amount, 'now()'], (err, res) => {
+        if (err) {
+            console.error("Error Creating Account", err)
+        }
+
+        console.log("Create Account Rows Affected: ", res.rowsAffected);
+
+        result = res.rowsAffected
+    });
+
+    return result;
+};
+
 const categories = () => {
     let query = "SELECT c.category_id, c.category_name, ct.category_type categories c INNER JOIN categoryTypes ct using(category_type_id)";
 
@@ -133,4 +151,4 @@ const transactions = (lowerLimit, upperLimit) => {
     return transactions;
 };
 
-export default {currencies, currencyByISOCode, categories, accounts, payees, transactions}
+export default {currencies, currencyByISOCode, categories, accounts, createAccount, payees, transactions}
