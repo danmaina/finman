@@ -6,8 +6,6 @@ import {store} from './store/store'
 
 Vue.config.productionTip = false;
 
-// fixme: When app starts the DB file is created but the tables are not created until second run
-
 new Vue({
   router,
   vuetify,
