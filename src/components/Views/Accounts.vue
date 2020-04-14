@@ -37,12 +37,10 @@
 </template>
 
 <script>
-    import models from "../../database/model";
-
     export default {
         name: "Accounts",
-        created() {
-            this.accounts = models.accounts();
+        mounted() {
+            this.accounts = this.$store.getters.getAccounts;
 
             console.log("Retrieved Accounts: ", this.accounts);
         },

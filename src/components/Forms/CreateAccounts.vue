@@ -4,11 +4,11 @@
         <hr>
         <v-form>
             <v-text-field dark dense outlined :label="account.placeholders.accountNamePlaceHolder" required
-                          :value="account.accountName"/>
+                          v-model="account.accountName"/>
             <v-select dark dense outlined :label="account.placeholders.accountCurrencyPlaceHolder" required
-                      :items="account.accountCurrencies" :value="account.accountCurrency"/>
+                      :items="account.currencies" v-model="account.accountCurrency"/>
             <v-text-field dark dense outlined :label="account.placeholders.accountBalancePlaceholder" type="number"
-                          required :value="account.accountBalance"/>
+                          required v-model="account.accountBalance"/>
             <v-btn dark right small class="v-btn v-btn--flat cyan" @click="createNewAccount">Create</v-btn>
         </v-form>
     </v-container>
@@ -19,15 +19,16 @@
 
     export default {
         name: "CreateAccounts",
-        created() {
-            this.account.accountCurrencies = model.currencies()
+        mounted() {
+            this.account.currencies = this.$store.getters.getCurrencyNames;
+            console.log("Retrieved currencies: ", this.account.currencies);
         },
         data: () => ({
             account: {
                 accountName: '',
                 accountBalance: 0,
-                accountCurrencies: [],
-                accountCurrency: {},
+                currencies: [],
+                accountCurrency: '',
                 placeholders: {
                     accountNamePlaceHolder: "Account Name",
                     accountCurrencyPlaceHolder: "Account Currency",
@@ -37,10 +38,12 @@
         }),
         methods: {
             createNewAccount() {
-                model.createAccount(this.account.accountName, this.account.accountBalance, this.account.accountCurrency.currency_id)
-                console.log("Created New Account")
-            }
-        }
+                console.log("Account Details: ", this.account);
+                let currencyId = this.$store.getters.getCurrencyIdByName(this.account.accountCurrency);
+                model.createAccount(this.account.accountName, this.account.accountBalance, currencyId);
+                this.$store.commit('setAccounts', model.accounts());
+            },
+        },
     }
 </script>
 

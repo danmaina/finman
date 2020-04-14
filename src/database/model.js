@@ -40,7 +40,9 @@ const currencyByISOCode = (isoCode) => {
 };
 
 const accounts = () => {
-    let query = "SELECT a.account_id, a.account_name, c.currency_name, c.iso_code, a.amount FROM accounts a INNER JOIN currencies c using(currency_id)";
+    let query = "SELECT accounts.account_id, accounts.account_name, currencies.currency_name, currencies.iso_code, accounts.amount " +
+        "FROM accounts " +
+        "INNER JOIN currencies using(currency_id)";
 
     let accounts = [];
 
@@ -63,12 +65,14 @@ const accounts = () => {
     return accounts
 };
 
-const createAccount = (accountName, currencyId, amount) => {
-    let query = "INSERT INTO accounts(currency_id, account_name, amount, created_at) VALUES(?, ?, ?, ?)"
+const createAccount = (accountName, amount, currencyId) => {
+    let query = "INSERT INTO accounts(currency_id, account_name, amount, created_at) VALUES(?, ?, ?, ?)";
 
     let result = 0;
 
-    db.run(query, [currencyId, accountName, amount, 'now()'], (err, res) => {
+    let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    db.run(query, [currencyId, accountName, amount, now], (err, res) => {
         if (err) {
             console.error("Error Creating Account", err)
         }
@@ -82,7 +86,9 @@ const createAccount = (accountName, currencyId, amount) => {
 };
 
 const categories = () => {
-    let query = "SELECT c.category_id, c.category_name, ct.category_type categories c INNER JOIN categoryTypes ct using(category_type_id)";
+    let query = "SELECT categories.category_id, categories.category_name, categoryTypes.category_type " +
+        "FROM categories " +
+        "INNER JOIN categoryTypes USING(category_type_id)";
 
     let categories = [];
 
@@ -124,7 +130,14 @@ const payees = () => {
 };
 
 const transactions = (lowerLimit, upperLimit) => {
-    let query = "SELECT t.transaction_id, t.amount, t.description, p.payee_name, tm.transaction_mode_id, ac.account_name, cu.currency_name, cu.iso_code, ca.category_name FROM transactions ORDER BY 1 DESC LIMIT ?, ?";
+    let query = "SELECT transactions.transaction_id, transactions.amount, transactions.description, payees.payee_name, transactionModes.transaction_mode_id, accounts.account_name, currencies.currency_name, currencies.iso_code, categories.category_name " +
+        "FROM transactions " +
+        "INNER JOIN payees USING (payee_id) " +
+        "INNER JOIN transactionModes USING(transaction_mode_id) " +
+        "INNER JOIN accounts USING(account_id) " +
+        "INNER JOIN currencies USING(currency_id) " +
+        "INNER JOIN categories USING(category_id) " +
+        "ORDER BY 1 DESC LIMIT ?, ?";
 
     let transactions = [];
 
