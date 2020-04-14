@@ -41,7 +41,7 @@
 
     export default {
         name: "Accounts",
-        created() {
+        mounted() {
             this.accounts = models.accounts();
 
             console.log("Retrieved Accounts: ", this.accounts);

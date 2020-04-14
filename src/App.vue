@@ -45,9 +45,13 @@
 </template>
 
 <script>
+    import db from "./database/sqlite";
+
     export default {
         created() {
-            this.$vuetify.theme.dark = true
+            this.$vuetify.theme.dark = true;
+            db.init();
+            //TODO: Fetch all the data models and keep them in vuex
         },
         name: 'App',
         data: () => ({
