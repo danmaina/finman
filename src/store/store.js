@@ -27,6 +27,24 @@ export const store = new Vuex.Store({
         },
         getTransactions: state => {
             return state.transactions;
+        },
+
+        getCurrencyNames: state => {
+            let currencies = [];
+
+            state.currencies.forEach((currency) => {
+                currencies.push(currency.currency_name)
+            });
+
+            return currencies
+        },
+
+        getCurrencyIdByName: (state) => (name) => {
+            state.currencies.forEach((currency) => {
+                if (currency.currency_name === name) {
+                    return currency.currency_id;
+                }
+            })
         }
     },
 
@@ -38,7 +56,7 @@ export const store = new Vuex.Store({
             state.categories = payload;
         },
         setCurrencies: (state, payload) => {
-            state.categories = payload;
+            state.currencies = payload;
         },
         setPayees: (state, payload) => {
             state.payees = payload;

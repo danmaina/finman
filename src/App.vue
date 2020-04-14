@@ -45,12 +45,16 @@
 </template>
 
 <script>
-    import db from "./database/sqlite";
+    import model from "./database/model";
 
     export default {
         created() {
             this.$vuetify.theme.dark = true;
-            db.init();
+            this.$store.commit('setAccounts', model.accounts());
+            this.$store.commit('setCategories', model.categories());
+            this.$store.commit('setCurrencies', model.currencies());
+            this.$store.commit('setPayees', model.payees());
+            this.$store.commit('setTransactions', model.transactions(0, 10));
             //TODO: Fetch all the data models and keep them in vuex
         },
         name: 'App',
