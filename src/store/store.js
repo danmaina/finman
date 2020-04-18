@@ -40,11 +40,14 @@ export const store = new Vuex.Store({
         },
 
         getCurrencyIdByName: (state) => (name) => {
+            let currencyId = 1;
             state.currencies.forEach((currency) => {
                 if (currency.currency_name === name) {
-                    return currency.currency_id;
+                    currencyId = currency.currency_id;
                 }
-            })
+            });
+
+            return currencyId;
         }
     },
 

@@ -12,9 +12,9 @@ const db = new sqlite3.Database(dbPath,
         console.log("Connected to the database")
     });
 
+// Initialize Tables
 const init = () => {
 
-    // Initialize Tables
     let createCurrenciesQuery = "CREATE TABLE IF NOT EXISTS currencies(" +
         "currency_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
         "currency_name TEXT, " +
@@ -92,14 +92,17 @@ const init = () => {
         "FOREIGN KEY (currency_id) REFERENCES currencies(currency_id) " +
         ")";
 
-    // Populate Tables with default values
+    let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
+    let defaultCurrenciesQuery = "INSERT INTO currencies(currency_name, iso_code, created_at) VALUES('KENYA SHILLING', 'KSH', '" + now + "'), ('UNITED STATES DOLLAR', 'USD', '" + now + "') "
+
+    // Populate Tables with default values
     // TODO: Add recurrent transactions
     // TODO: Add budgeting
     // TODO: Add Stocks and investments
     // TODO: Add Asset financial management -> Account Types {Bank, Asset, Cash}
 
-    let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery, createTransactionsQuery, createPayeesQuery, createCategoryTypesQuery, createCategoriesQuery, createTransactionModesQuery];
+    let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery, createTransactionsQuery, createPayeesQuery, createCategoryTypesQuery, createCategoriesQuery, createTransactionModesQuery, defaultCurrenciesQuery];
 
     for (const query of initQueries) {
         db.run(query, [], (err) => {

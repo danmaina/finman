@@ -62,13 +62,11 @@ const accounts = () => {
         });
     });
 
-    return accounts
+    return accounts;
 };
 
 const createAccount = (accountName, amount, currencyId) => {
     let query = "INSERT INTO accounts(currency_id, account_name, amount, created_at) VALUES(?, ?, ?, ?)";
-
-    let result = 0;
 
     let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
@@ -78,11 +76,7 @@ const createAccount = (accountName, amount, currencyId) => {
         }
 
         console.log("Create Account Rows Affected: ", res.rowsAffected);
-
-        result = res.rowsAffected
     });
-
-    return result;
 };
 
 const categories = () => {

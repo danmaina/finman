@@ -28,7 +28,7 @@
                 accountName: '',
                 accountBalance: 0,
                 currencies: [],
-                accountCurrency: '',
+                accountCurrency: null,
                 placeholders: {
                     accountNamePlaceHolder: "Account Name",
                     accountCurrencyPlaceHolder: "Account Currency",
@@ -40,6 +40,7 @@
             createNewAccount() {
                 console.log("Account Details: ", this.account);
                 let currencyId = this.$store.getters.getCurrencyIdByName(this.account.accountCurrency);
+                console.log("Retrieved CurrencyId: ", currencyId);
                 model.createAccount(this.account.accountName, this.account.accountBalance, currencyId);
                 this.$store.commit('setAccounts', model.accounts());
             },

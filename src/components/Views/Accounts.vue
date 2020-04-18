@@ -39,10 +39,8 @@
 <script>
     export default {
         name: "Accounts",
-        mounted() {
+        created() {
             this.accounts = this.$store.getters.getAccounts;
-
-            console.log("Retrieved Accounts: ", this.accounts);
         },
         data: () => ({
             appBarIcons: {

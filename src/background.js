@@ -3,6 +3,7 @@
 import {app, BrowserWindow, protocol} from 'electron'
 import {createProtocol,} from 'vue-cli-plugin-electron-builder/lib'
 import db from './database/sqlite'
+import model from "./database/model";
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -10,37 +11,39 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
 
-// Initialize the app Database
-db.init();
-
-setTimeout(() => {
-    console.log("Awaiting DB Initialization For 5 seconds")
-}, 5000);
-
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true, standard: true}}])
 
 function createWindow() {
-    // Create the browser window.
-    win = new BrowserWindow({
-        width: 1024, height: 768, webPreferences: {
-            nodeIntegration: true
+
+    // Initialize the app Database and store data to vuex
+    db.init();
+
+    setTimeout(() => {
+        console.log("Waiting For The Database to Start Up!")
+
+        // Create the browser window.
+        win = new BrowserWindow({
+            width: 1024, height: 768, webPreferences: {
+                nodeIntegration: true
+            }
+        });
+
+        if (process.env.WEBPACK_DEV_SERVER_URL) {
+            // Load the url of the dev server if in development mode
+            win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+            if (!process.env.IS_TEST) win.webContents.openDevTools()
+        } else {
+            createProtocol('app');
+            // Load the index.html when not in development
+            win.loadURL('app://./index.html');
         }
-    });
 
-    if (process.env.WEBPACK_DEV_SERVER_URL) {
-        // Load the url of the dev server if in development mode
-        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-        if (!process.env.IS_TEST) win.webContents.openDevTools()
-    } else {
-        createProtocol('app');
-        // Load the index.html when not in development
-        win.loadURL('app://./index.html');
-    }
+        win.on('closed', () => {
+            win = null
+        })
 
-    win.on('closed', () => {
-        win = null
-    })
+    }, 2000);
 }
 
 // Quit when all windows are closed.
