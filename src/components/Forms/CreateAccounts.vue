@@ -43,6 +43,7 @@
                 console.log("Retrieved CurrencyId: ", currencyId);
                 model.createAccount(this.account.accountName, this.account.accountBalance, currencyId);
                 this.$store.commit('setAccounts', model.accounts());
+                this.$router.push({path: '/accounts', name: "accounts"});
             },
         },
     }

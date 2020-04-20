@@ -19,18 +19,33 @@
                     :sort-desc="[false, false, true, false]"
                     :search="search"
                     multi-sort
-                    dense
-            />
+                    @click:row="selectAccount"
+                    single-select
+            >
+            </v-data-table>
         </v-flex>
+
+        <v-row>
+            <v-card class="mt-5 ml-3">
+                <v-card-title dark="true" class="text-center">
+                    Total Balance
+                </v-card-title>
+                <!--                TODO: Change Text color according to money in the accounts-->
+                <v-card-text class="text-center display-2 font-weight-bold green--text">
+                    {{ totalAccountsSum }}
+                </v-card-text>
+            </v-card>
+        </v-row>
+
         <v-app-bar absolute dark dense bottom>
             <v-btn small dark justify="center" class="primary ml-4 v-btn--flat">
                 <v-icon title="New Account" @click="navigateToCreateAccount">{{appBarIcons.create}}</v-icon>
             </v-btn>
             <v-btn small dark color="orange" justify="center" class="ml-4 v-btn--flat">
-                <v-icon title="Update Record">{{appBarIcons.edit}}</v-icon>
+                <v-icon title="Update Record" @click="navigateToEditAccount">{{appBarIcons.edit}}</v-icon>
             </v-btn>
             <v-btn small dark color="red" class=" ml-4 v-btn--flat">
-                <v-icon title="Delete Record">{{appBarIcons.delete}}</v-icon>
+                <v-icon title="Delete Record" @click="navigateToDeleteAccount">{{appBarIcons.delete}}</v-icon>
             </v-btn>
         </v-app-bar>
     </v-container>
@@ -58,22 +73,51 @@
                     {text: 'ISO Code', value: 'iso_code'},
                     {text: 'Balance', value: 'amount'},
                 ]
-            }
+            },
+            selectedAccount: null
         }),
         methods: {
             navigateToCreateAccount() {
+                // TODO: Possible convert to dialog
                 this.$router.push({name: 'create_account'})
             },
             navigateToEditAccount() {
-
+                // TODO: Use a v-dialog to modify the account and update vuex and the database
+                if (this.selectedAccount !== null) {
+                    console.log("Selected Account = ", this.selectedAccount)
+                } else {
+                    console.log("No Account Selected")
+                }
             },
             navigateToDeleteAccount() {
+                // TODO: use a v-dialog to confirm delete the account and delete if the user accepts or leave as is if the user refuses
+                if (this.selectedAccount !== null) {
+                    console.log("Selected Account = ", this.selectedAccount)
+                } else {
+                    console.log("No Account Selected")
+                }
+            },
+            selectAccount(item, row) {
+                row.select(true);
+                this.selectedAccount = item
+                console.log(item)
+            }
+        },
+        computed: {
+            totalAccountsSum() {
 
+                let totalAccountSum = 0
+
+                this.accounts.forEach(account => {
+                    // TODO: Add currencyConversions to calculation
+                    totalAccountSum += account.amount;
+                })
+
+                return totalAccountSum;
             }
         }
     }
 </script>
 
 <style scoped>
-
 </style>
