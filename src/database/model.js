@@ -72,12 +72,24 @@ const createAccount = (accountName, amount, currencyId) => {
 
     db.run(query, [currencyId, accountName, amount, now], (err, res) => {
         if (err) {
-            console.error("Error Creating Account", err)
+            console.error("Error Creating Account: ", err);
         }
 
         console.log("Create Account Rows Affected: ", res.rowsAffected);
     });
 };
+
+const deleteAccountById = (accountId) => {
+    let query = "DELETE FROM accounts WHERE account_id = ?";
+
+    db.run(query, [accountId], (err, res) => {
+       if (err) {
+           console.error("Error deleting account: ", err);
+       }
+
+       console.log("Deleted account with ID: ", accountId, " WIth Result: ", res)
+    });
+}
 
 const categories = () => {
     let query = "SELECT categories.category_id, categories.category_name, categoryTypes.category_type " +
@@ -158,4 +170,4 @@ const transactions = (lowerLimit, upperLimit) => {
     return transactions;
 };
 
-export default {currencies, currencyByISOCode, categories, accounts, createAccount, payees, transactions}
+export default {currencies, currencyByISOCode, categories, accounts, createAccount, deleteAccountById, payees, transactions}

@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
+import model from "../database/model";
 
 Vue.use(Vuex);
 
@@ -54,6 +55,15 @@ export const store = new Vuex.Store({
     mutations: {
         setAccounts: (state, payload) => {
             state.accounts = payload;
+        },
+        deleteAccountById: (state, payload) => {
+            // Delete account in DB
+            model.deleteAccountById(payload.account_id);
+            
+            state.accounts = state.accounts.filter(account => {
+                return account.account_id !== payload.account_id;
+            });
+
         },
         setCategories: (state, payload) => {
             state.categories = payload;

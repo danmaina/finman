@@ -124,11 +124,13 @@
             },
             deleteAccount() {
                 this.deleteAccountDialog = false;
-                // TODO: use a v-dialog to confirm delete the account and delete if the user accepts or leave as is if the user refuses
                 if (this.selectedAccount !== null) {
-                    console.log("Selected Account = ", this.selectedAccount)
+                    console.log("Selected Account = ", this.selectedAccount);
+                    this.$store.commit("deleteAccountById", this.selectedAccount);
+                    this.accounts = this.$store.getters.getAccounts;
                 } else {
                     console.log("No Account Selected")
+                    // TODO: Show dialog with No account Selected Error
                 }
             },
             selectAccount(item, row) {
