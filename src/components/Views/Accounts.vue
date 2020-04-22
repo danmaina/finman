@@ -37,16 +37,48 @@
             </v-card>
         </v-row>
 
-        <v-app-bar absolute dark dense bottom>
-            <v-btn small dark justify="center" class="primary ml-4 v-btn--flat">
+        <v-app-bar absolute dark text dense bottom>
+            <v-btn small dark justify="center" class="ml-4 v-btn--flat">
                 <v-icon title="New Account" @click="navigateToCreateAccount">{{appBarIcons.create}}</v-icon>
             </v-btn>
-            <v-btn small dark color="orange" justify="center" class="ml-4 v-btn--flat">
+            <v-btn small dark text color="orange" justify="center" class="ml-4 v-btn--flat">
                 <v-icon title="Update Record" @click="navigateToEditAccount">{{appBarIcons.edit}}</v-icon>
             </v-btn>
-            <v-btn small dark color="red" class=" ml-4 v-btn--flat">
-                <v-icon title="Delete Record" @click="navigateToDeleteAccount">{{appBarIcons.delete}}</v-icon>
+            <v-dialog>
+
+            </v-dialog>
+            <v-btn small dark text color="red" class=" ml-4 v-btn--flat">
+                <v-icon title="Delete Record" @click.stop="deleteAccountDialog = true">{{appBarIcons.delete}}</v-icon>
             </v-btn>
+            <v-dialog
+                v-model="deleteAccountDialog"
+                max-width="290"
+                dark
+            >
+                <v-card>
+                    <v-card-title>Sure</v-card-title>
+                    <v-card-text>
+                        Are you sure you want to delete this account?
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                                dark
+                                small
+                                class="primary v-btn--flat"
+                                text
+                                @click="deleteAccountDialog = false"
+                        >No</v-btn>
+                        <v-btn
+                                dark
+                                small
+                                text
+                                color="red"
+                                @click="deleteAccount"
+                        >Yes</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </v-app-bar>
     </v-container>
 </template>
@@ -74,7 +106,8 @@
                     {text: 'Balance', value: 'amount'},
                 ]
             },
-            selectedAccount: null
+            selectedAccount: null,
+            deleteAccountDialog: false,
         }),
         methods: {
             navigateToCreateAccount() {
@@ -89,7 +122,8 @@
                     console.log("No Account Selected")
                 }
             },
-            navigateToDeleteAccount() {
+            deleteAccount() {
+                this.deleteAccountDialog = false;
                 // TODO: use a v-dialog to confirm delete the account and delete if the user accepts or leave as is if the user refuses
                 if (this.selectedAccount !== null) {
                     console.log("Selected Account = ", this.selectedAccount)

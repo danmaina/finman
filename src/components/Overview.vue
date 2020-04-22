@@ -8,17 +8,17 @@
             </v-row>
             <v-row justify="center">
                   <v-app-bar absolute dense dark bottom>
-                        <v-btn small dark justify="center" class="primary ml-4 v-btn--flat"
+                        <v-btn small text dark justify="center" class="ml-4 v-btn--flat"
                                @click="navigateToNewTransaction">
                               <v-icon title="New Transaction">{{appBarIcons.newTransaction}}</v-icon>
                         </v-btn>
-                        <v-btn small dark class="primary ml-4 v-btn--flat" @click="navigateToNewAccount">
+                        <v-btn small text dark class="ml-4 v-btn--flat" @click="navigateToNewAccount">
                               <v-icon title="New Account">{{appBarIcons.newAccount}}</v-icon>
                         </v-btn>
-                        <v-btn small dark class="primary ml-4 v-btn--flat" @click="navigateToNewCategory">
+                        <v-btn small text dark class="ml-4 v-btn--flat" @click="navigateToNewCategory">
                               <v-icon title="New Category">{{appBarIcons.newCategory}}</v-icon>
                         </v-btn>
-                        <v-btn small dark class="primary ml-4 v-btn--flat" @click="navigateToNewPayee">
+                        <v-btn small text dark class="ml-4 v-btn--flat" @click="navigateToNewPayee">
                               <v-icon title="New Payee">{{appBarIcons.newPayee}}</v-icon>
                         </v-btn>
                   </v-app-bar>
