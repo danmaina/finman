@@ -53,6 +53,14 @@ export const store = new Vuex.Store({
     },
 
     mutations: {
+        createAccount: (state, payload) => {
+            model.createAccount(payload.account_name, payload.amount,payload.currency_id);
+            state.accounts = model.accounts();
+        },
+        updateAccount: (state, payload) => {
+            model.updateAccountById(payload.account_name, payload.amount, payload.currency_id, payload.account_id);
+            state.accounts = model.accounts();
+        },
         setAccounts: (state, payload) => {
             state.accounts = payload;
         },

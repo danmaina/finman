@@ -38,25 +38,78 @@
         </v-row>
 
         <v-app-bar absolute dark text dense bottom>
+            <!--            Create Account-->
             <v-btn small dark justify="center" class="ml-4 v-btn--flat">
-                <v-icon title="New Account" @click="navigateToCreateAccount">{{appBarIcons.create}}</v-icon>
-            </v-btn>
-            <v-btn small dark text color="orange" justify="center" class="ml-4 v-btn--flat">
-                <v-icon title="Update Record" @click="navigateToEditAccount">{{appBarIcons.edit}}</v-icon>
-            </v-btn>
-            <v-dialog>
-
-            </v-dialog>
-            <v-btn small dark text color="red" class=" ml-4 v-btn--flat">
-                <v-icon title="Delete Record" @click.stop="deleteAccountDialog = true">{{appBarIcons.delete}}</v-icon>
+                <v-icon title="New Account" @click.stop="createAccountDialog = true">{{appBarIcons.create}}</v-icon>
             </v-btn>
             <v-dialog
-                v-model="deleteAccountDialog"
-                max-width="290"
-                dark
+                    v-model="createAccountDialog"
+                    dark
+                    max-width="400">
+                <v-card>
+                    <v-card-title>
+                        Create A New Account
+                    </v-card-title>
+                    <v-card-text>
+                        <v-form>
+                            <v-text-field dark dense outlined :label="placeholders.accountName" required
+                                          v-model="createdAccount.account_name"/>
+                            <v-select dark dense outlined :label="placeholders.accountCurrency" required
+                                      :items="currencies" v-model="createdAccount.currency_name"/>
+                            <v-text-field dark dense outlined :label="placeholders.accountBalance" type="number"
+                                          required v-model="createdAccount.amount"/>
+                            <v-btn dark right small class="v-btn v-btn--flat cyan--text"
+                                   @click="createAccount">
+                                Create
+                            </v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+            <!--            Edit Account-->
+            <v-btn small dark text color="orange" justify="center" class="ml-4 v-btn--flat">
+                <v-icon title="Update Record"
+                        @click.stop="validateEditAccount">
+                    {{appBarIcons.edit}}
+                </v-icon>
+            </v-btn>
+            <v-dialog
+                    v-model="editAccountDialog"
+                    dark
+                    max-width="400">
+                <v-card>
+                    <v-card-title>
+                        Modify Account
+                    </v-card-title>
+                    <v-card-text>
+                        <v-form>
+                            <v-text-field dark dense outlined :label="placeholders.accountName" required
+                                          v-model="editedAccount.account_name" :value="editedAccount.account_name"/>
+                            <v-select dark dense outlined :label="placeholders.accountCurrency" required
+                                      :items="currencies" v-model="editedAccount.currency_name" :value="editedAccount.currency_name"/>
+                            <v-text-field dark dense outlined :label="placeholders.accountBalance" type="number"
+                                          required v-model="editedAccount.amount" :value="editedAccount.amount"/>
+                            <v-btn dark right small class="v-btn v-btn--flat orange--text"
+                                   @click="editAccount">
+                                Edit
+                            </v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+            <!--            Delete Account-->
+            <v-btn small dark text color="red" class=" ml-4 v-btn--flat">
+                <v-icon title="Delete Record" @click.stop="validateDeleteAccount">
+                    {{appBarIcons.delete}}
+                </v-icon>
+            </v-btn>
+            <v-dialog
+                    v-model="deleteAccountDialog"
+                    max-width="290"
+                    dark
             >
                 <v-card>
-                    <v-card-title>Sure</v-card-title>
+                    <v-card-title>Sure?</v-card-title>
                     <v-card-text>
                         Are you sure you want to delete this account?
                     </v-card-text>
@@ -68,14 +121,16 @@
                                 class="primary v-btn--flat"
                                 text
                                 @click="deleteAccountDialog = false"
-                        >No</v-btn>
+                        >No
+                        </v-btn>
                         <v-btn
                                 dark
                                 small
                                 text
                                 color="red"
                                 @click="deleteAccount"
-                        >Yes</v-btn>
+                        >Yes
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -88,6 +143,7 @@
         name: "Accounts",
         created() {
             this.accounts = this.$store.getters.getAccounts;
+            this.currencies = this.$store.getters.getCurrencyNames;
         },
         data: () => ({
             appBarIcons: {
@@ -95,8 +151,16 @@
                 edit: 'mdi-pencil-outline',
                 delete: 'mdi-delete-outline',
             },
+            currencies: [],
+            createdAccount: {},
+            editedAccount: {},
             search: '',
             accounts: [],
+            placeholders: {
+                accountName: "Account Name",
+                accountCurrency: "Account Currency",
+                accountBalance: "Account Balance",
+            },
             table: {
                 headers: [
                     {text: 'Id', value: 'account_id'},
@@ -107,17 +171,28 @@
                 ]
             },
             selectedAccount: null,
+
+            createAccountDialog: false,
             deleteAccountDialog: false,
+            editAccountDialog: false,
         }),
         methods: {
-            navigateToCreateAccount() {
-                // TODO: Possible convert to dialog
-                this.$router.push({name: 'create_account'})
+            createAccount() {
+                console.log("Created Account: ", this.createdAccount);
+                this.editedAccount.currency_id = this.$store.getters.getCurrencyIdByName(this.editedAccount.currency_name);
+                this.$store.commit("createAccount", this.createdAccount);
+                this.createdAccount = {};
+                this.accounts = this.$store.getters.getAccounts;
+                this.createAccountDialog = false;
             },
-            navigateToEditAccount() {
+            editAccount() {
                 // TODO: Use a v-dialog to modify the account and update vuex and the database
                 if (this.selectedAccount !== null) {
                     console.log("Selected Account = ", this.selectedAccount)
+                    this.selectedAccount.currency_id = this.$store.getters.getCurrencyIdByName(this.selectedAccount.currency_name);
+                    this.$store.commit("updateAccount", this.editedAccount);
+                    this.accounts = this.$store.getters.getAccounts
+                    this.editAccountDialog = false;
                 } else {
                     console.log("No Account Selected")
                 }
@@ -131,6 +206,17 @@
                 } else {
                     console.log("No Account Selected")
                     // TODO: Show dialog with No account Selected Error
+                }
+            },
+            validateEditAccount() {
+                if (this.selectedAccount !== null) {
+                    this.editedAccount = this.selectedAccount;
+                    this.editAccountDialog = true;
+                }
+            },
+            validateDeleteAccount() {
+                if (this.selectedAccount !== null) {
+                    this.deleteAccountDialog = true;
                 }
             },
             selectAccount(item, row) {

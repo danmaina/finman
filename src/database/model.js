@@ -79,6 +79,18 @@ const createAccount = (accountName, amount, currencyId) => {
     });
 };
 
+const updateAccountById = (accountName, amount, currencyId, accountId) => {
+  let query = "UPDATE accounts SET account_name = ?, amount = ?, currency_id = ? WHERE account_id = ?";
+
+  db.run(query, [accountName, amount, currencyId, accountId], (err, res) => {
+     if (err) {
+         console.error("Error Updating Account With Id: ", accountId);
+     }
+
+     console.log("Updated Account With Id: ", accountId," Response is: ", res);
+  });
+};
+
 const deleteAccountById = (accountId) => {
     let query = "DELETE FROM accounts WHERE account_id = ?";
 
@@ -170,4 +182,4 @@ const transactions = (lowerLimit, upperLimit) => {
     return transactions;
 };
 
-export default {currencies, currencyByISOCode, categories, accounts, createAccount, deleteAccountById, payees, transactions}
+export default {currencies, currencyByISOCode, categories, accounts, createAccount, updateAccountById, deleteAccountById, payees, transactions}
