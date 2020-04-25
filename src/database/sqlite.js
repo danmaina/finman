@@ -94,7 +94,9 @@ const init = () => {
 
     let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    let defaultCurrenciesQuery = "INSERT INTO currencies(currency_name, iso_code, created_at) VALUES('KENYA SHILLING', 'KSH', '" + now + "'), ('UNITED STATES DOLLAR', 'USD', '" + now + "') "
+    let defaultCurrenciesQuery = "INSERT INTO currencies(currency_name, iso_code, created_at) VALUES('KENYA SHILLING', 'KSH', '" + now + "'), ('UNITED STATES DOLLAR', 'USD', '" + now + "') ";
+
+    let defaultCategoryTypesQuery = "INSERT INTO categoryTypes(category_type, created_at) VALUES('EXPENSES', '" + now + "'), ('INCOME', '" + now + "') ";
 
     // Populate Tables with default values
     // TODO: Add recurrent transactions
@@ -102,7 +104,7 @@ const init = () => {
     // TODO: Add Stocks and investments
     // TODO: Add Asset financial management -> Account Types {Bank, Asset, Cash}
 
-    let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery, createTransactionsQuery, createPayeesQuery, createCategoryTypesQuery, createCategoriesQuery, createTransactionModesQuery, defaultCurrenciesQuery];
+    let initQueries = [createCurrenciesQuery, createCurrencyRatesQuery, createAccountsQuery, createTransactionsQuery, createPayeesQuery, createCategoryTypesQuery, defaultCategoryTypesQuery, createCategoriesQuery, createTransactionModesQuery, defaultCurrenciesQuery];
 
     for (const query of initQueries) {
         db.run(query, [], (err) => {

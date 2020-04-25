@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
 import Overview from '../components/Overview'
-import Budget from "../components/Views/Budget";
-import Reports from "../components/Views/Reports";
-import Accounts from "../components/Views/Accounts";
-import Categories from "../components/Views/Categories";
-import Payees from "../components/Views/Payees";
-import Transactions from "../components/Views/Transactions";
+import Budget from "../components/Budget";
+import Reports from "../components/Reports";
+import Accounts from "../components/Accounts";
+import Categories from "../components/Categories";
+import Payees from "../components/Payees";
+import Transactions from "../components/Transactions";
 
 Vue.use(VueRouter);
 
