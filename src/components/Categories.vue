@@ -9,8 +9,7 @@
                     hide-details
             ></v-text-field>
         </v-row>
-        <v-flex class="xs12 sm12 lg12 md12 ">
-<!--            TODO: Switch this to treeview-->
+        <v-flex class="xs12 sm12 lg12 md12">
             <v-data-table
                     dark
                     :headers="table.headers"
@@ -24,6 +23,26 @@
             >
             </v-data-table>
         </v-flex>
+        <v-app-bar absolute dark dense bottom>
+            <!--            Create Category-->
+            <v-btn small dark text justify="center" class="ml-4 v-btn--flat">
+                <v-icon title="New Category">{{appBarIcons.create}}</v-icon>
+            </v-btn>
+
+            <!--            Edit Category-->
+            <v-btn small dark text color="orange" justify="center" class="ml-4 v-btn--flat">
+                <v-icon title="Update Category name">
+                    {{appBarIcons.edit}}
+                </v-icon>
+            </v-btn>
+
+            <!--            Delete Category-->
+            <v-btn small dark text color="red" class=" ml-4 v-btn--flat">
+                <v-icon title="Delete Category">
+                    {{appBarIcons.delete}}
+                </v-icon>
+            </v-btn>
+        </v-app-bar>
     </v-container>
 </template>
 
@@ -34,16 +53,21 @@
             this.categories = this.$store.getters.getCategories;
         },
         data: () => ({
-            categories: [],
-            search: '',
+            appBarIcons: {
+                create: 'mdi-briefcase-plus',
+                edit: 'mdi-pencil-outline',
+                delete: 'mdi-delete-outline',
+            },
             table: {
                 headers: [
                     {text: 'Id', value: 'category_id'},
                     {text: 'Category Name', value: 'category_name'},
-                    {text: 'Category Type', value: 'category_type', sortable: false}
+                    {text: 'Category Type', value: 'currency_type'}
                 ]
             },
-            selectedCategory: {}
+            categories: [],
+            search: '',
+            selectedCategory: []
         }),
         methods: {
             selectCategory(item, row) {

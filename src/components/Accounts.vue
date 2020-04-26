@@ -9,7 +9,7 @@
                     hide-details
             ></v-text-field>
         </v-row>
-        <v-flex class="xs12 sm12 lg12 md12 ">
+        <v-flex class="xs12 sm12 lg12 md12">
             <v-data-table
                     dark
                     :headers="table.headers"
@@ -37,9 +37,9 @@
             </v-card>
         </v-row>
 
-        <v-app-bar absolute dark text dense bottom>
+        <v-app-bar absolute dark dense bottom>
             <!--            Create Account-->
-            <v-btn small dark justify="center" class="ml-4 v-btn--flat">
+            <v-btn small text dark justify="center" class="ml-4 v-btn--flat">
                 <v-icon title="New Account" @click.stop="createAccountDialog = true">{{appBarIcons.create}}</v-icon>
             </v-btn>
             <v-dialog
@@ -86,7 +86,8 @@
                             <v-text-field dark dense outlined :label="placeholders.accountName" required
                                           v-model="editedAccount.account_name" :value="editedAccount.account_name"/>
                             <v-select dark dense outlined :label="placeholders.accountCurrency" required
-                                      :items="currencies" v-model="editedAccount.currency_name" :value="editedAccount.currency_name"/>
+                                      :items="currencies" v-model="editedAccount.currency_name"
+                                      :value="editedAccount.currency_name"/>
                             <v-text-field dark dense outlined :label="placeholders.accountBalance" type="number"
                                           required v-model="editedAccount.amount" :value="editedAccount.amount"/>
                             <v-btn dark right small class="v-btn v-btn--flat orange--text"
