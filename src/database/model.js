@@ -106,7 +106,7 @@ const deleteAccountById = (accountId) => {
 const categories = () => {
     let query = "SELECT c.category_id, c.category_name, ct.category_type " +
         "FROM categories c " +
-        "INNER JOIN categoryTypes ct USING(category_type_id)";
+        "INNER JOIN categoryTypes ct USING(category_type_id) ORDER BY ct.category_type";
 
     let categories = [];
 

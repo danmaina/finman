@@ -94,19 +94,21 @@ const init = () => {
 
     let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-    let defaultCurrenciesQuery = "INSERT IGNORE INTO currencies(currency_name, iso_code, created_at) VALUES('KENYA SHILLING', 'KSH', '" + now + "'), ('UNITED STATES DOLLAR', 'USD', '" + now + "') ";
+    let defaultCurrenciesQuery = "INSERT OR IGNORE INTO currencies(currency_name, iso_code, created_at) VALUES('KENYA SHILLING', 'KSH', '" + now + "'), ('UNITED STATES DOLLAR', 'USD', '" + now + "') ";
 
-    let defaultCategoryTypesQuery = "INSERT IGNORE INTO categoryTypes(category_type, created_at) VALUES('EXPENSES', '" + now + "'), ('INCOME', '" + now + "') ";
+    let defaultCategoryTypesQuery = "INSERT OR IGNORE INTO categoryTypes(category_type, created_at) VALUES('EXPENSES', '" + now + "'), ('INCOME', '" + now + "') ";
 
-    let defaultCategoriesQuery = `INSERT IGNORE INTO categories(category_name, category_type_id, created_at) 
+    let defaultCategoriesQuery = `INSERT OR IGNORE INTO categories(category_name, category_type_id, created_at) 
                                     VALUES('Salary', 2, '` + now + `'), 
                                     ('Bills', 1, '` + now + `')`;
 
     // Populate Tables with default values
     // TODO: Add recurrent transactions
+    // TODO: Add account types
     // TODO: Add budgeting
     // TODO: Add Stocks and investments
     // TODO: Add Asset financial management -> Account Types {Bank, Asset, Cash}
+    // TODO: Add account types
 
     let initQueries = [
         createCurrenciesQuery,
