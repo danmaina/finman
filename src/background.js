@@ -43,7 +43,7 @@ function createWindow() {
             win = null
         })
 
-    }, 5000);
+    }, 2000);
 }
 
 // Quit when all windows are closed.

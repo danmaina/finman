@@ -94,6 +94,7 @@ const init = () => {
 
     let now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
+    // Populate Tables with default values
     let defaultCurrenciesQuery = "INSERT OR IGNORE INTO currencies(currency_name, iso_code, created_at) VALUES('KENYA SHILLING', 'KSH', '" + now + "'), ('UNITED STATES DOLLAR', 'USD', '" + now + "') ";
 
     let defaultCategoryTypesQuery = "INSERT OR IGNORE INTO categoryTypes(category_type, created_at) VALUES('EXPENSES', '" + now + "'), ('INCOME', '" + now + "') ";
@@ -102,13 +103,14 @@ const init = () => {
                                     VALUES('Salary', 2, '` + now + `'), 
                                     ('Bills', 1, '` + now + `')`;
 
-    // Populate Tables with default values
-    // TODO: Add recurrent transactions
     // TODO: Add account types
+    // TODO: Add recurrent transactions
     // TODO: Add budgeting
     // TODO: Add Stocks and investments
     // TODO: Add Asset financial management -> Account Types {Bank, Asset, Cash}
     // TODO: Add account types
+
+
 
     let initQueries = [
         createCurrenciesQuery,
