@@ -6,11 +6,11 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        accounts: [],
-        categories: [],
-        currencies: [],
-        payees: [],
-        transactions: [],
+        accounts: model.accounts(),
+        categories: model.categories(),
+        currencies: model.currencies(),
+        payees: model.payees(),
+        transactions: model.transactions(0, 10),
     },
 
     getters: {
@@ -54,7 +54,7 @@ export const store = new Vuex.Store({
 
     mutations: {
         createAccount: (state, payload) => {
-            model.createAccount(payload.account_name, payload.amount,payload.currency_id);
+            model.createAccount(payload.account_name, payload.amount, payload.currency_id);
             state.accounts = model.accounts();
         },
         updateAccount: (state, payload) => {

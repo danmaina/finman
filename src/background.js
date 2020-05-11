@@ -2,9 +2,7 @@
 
 import {app, BrowserWindow, protocol} from 'electron'
 import {createProtocol,} from 'vue-cli-plugin-electron-builder/lib'
-import db from './database/sqlite'
-import model from "./database/model";
-import { store } from "./store/store"
+import sqlite from './database/sqlite'
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -18,27 +16,7 @@ protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: {secure: true,
 function createWindow() {
 
     // Initialize the app Database and store data to vuex
-    db.init();
-
-    let accounts = model.accounts();
-    let categories = model.categories();
-    let currencies = model.currencies();
-    let payees = model.payees();
-    let transactions = model.transactions(0, 10);
-
-    // Initialize App caches
-    store.commit('setAccounts', accounts);
-    store.commit('setCategories', categories);
-    store.commit('setCurrencies', currencies);
-    store.commit('setPayees', payees);
-    store.commit('setTransactions', transactions);
-
-    console.log("Fetched Data From DB: ",
-        "\nAccounts: ", store.getters.getAccounts,
-        "\nCategories: ", store.getters.getCategories,
-        "\nCurrencies: ", store.getters.getCurrencies,
-        "\nPayees: ", store.getters.getPayees,
-        "\nTransactions: ", store.getters.getTransactions)
+    sqlite.init();
 
     setTimeout(() => {
         console.log("Waiting For The Database to Start Up!")
@@ -72,7 +50,8 @@ app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
-        app.quit()
+        sqlite.db.close();
+        app.quit();
     }
 });
 

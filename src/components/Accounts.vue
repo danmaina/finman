@@ -140,16 +140,10 @@
 </template>
 
 <script>
-    import model from "../database/model";
 
     export default {
         name: "Accounts",
         created() {
-            if (this.$store.getters.getAccounts.length === 0) {
-                this.$store.commit("setAccounts", model.accounts());
-            } else if (this.$store.getters.getCurrencies.length === 0){
-                this.$store.commit("setCurrencies", model.currencies());
-            }
             this.accounts = this.$store.getters.getAccounts;
             this.currencies = this.$store.getters.getCurrencyNames;
         },

@@ -46,9 +46,19 @@
 
 <script>
 
+    import {store} from "./store/store";
+
     export default {
         created() {
             this.$vuetify.theme.dark = true;
+
+            console.log("Fetched Data From DB: ",
+                "\nAccounts: ", store.getters.getAccounts,
+                "\nCategories: ", store.getters.getCategories,
+                "\nCurrencies: ", store.getters.getCurrencies,
+                "\nPayees: ", store.getters.getPayees,
+                "\nTransactions: ", store.getters.getTransactions);
+            
         },
         name: 'App',
         data: () => ({
