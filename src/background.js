@@ -4,6 +4,7 @@ import {app, BrowserWindow, protocol} from 'electron'
 import {createProtocol,} from 'vue-cli-plugin-electron-builder/lib'
 import db from './database/sqlite'
 import model from "./database/model";
+import { store } from "./store/store"
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -18,6 +19,26 @@ function createWindow() {
 
     // Initialize the app Database and store data to vuex
     db.init();
+
+    let accounts = model.accounts();
+    let categories = model.categories();
+    let currencies = model.currencies();
+    let payees = model.payees();
+    let transactions = model.transactions(0, 10);
+
+    // Initialize App caches
+    store.commit('setAccounts', accounts);
+    store.commit('setCategories', categories);
+    store.commit('setCurrencies', currencies);
+    store.commit('setPayees', payees);
+    store.commit('setTransactions', transactions);
+
+    console.log("Fetched Data From DB: ",
+        "\nAccounts: ", store.getters.getAccounts,
+        "\nCategories: ", store.getters.getCategories,
+        "\nCurrencies: ", store.getters.getCurrencies,
+        "\nPayees: ", store.getters.getPayees,
+        "\nTransactions: ", store.getters.getTransactions)
 
     setTimeout(() => {
         console.log("Waiting For The Database to Start Up!")

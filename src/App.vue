@@ -45,12 +45,10 @@
 </template>
 
 <script>
-    import model from "./database/model";
 
     export default {
         created() {
             this.$vuetify.theme.dark = true;
-            this.updateVuexCache();
         },
         name: 'App',
         data: () => ({
@@ -79,23 +77,7 @@
         }),
 
         methods: {
-            updateVuexCache() {
-                // FIXME: update vuex on create
-                this.$store.commit('setAccounts', model.accounts());
-                this.$store.commit('setCategories', model.categories());
-                this.$store.commit('setCurrencies', model.currencies());
-                this.$store.commit('setPayees', model.payees());
-                this.$store.commit('setTransactions', model.transactions(0, 10));
 
-                setTimeout(() => {
-                    console.log("Fetched Data From DB: ",
-                        "\nAccounts: ", this.$store.getters.getAccounts,
-                        "\nCategories: ", this.$store.getters.getCategories,
-                        "\nCurrencies: ", this.$store.getters.getCurrencies,
-                        "\nPayees: ", this.$store.getters.getPayees,
-                        "\nTransactions: ", this.$store.getters.getTransactions)
-                }, 3000)
-            }
         }
     };
 </script>
