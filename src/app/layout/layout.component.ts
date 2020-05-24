@@ -9,6 +9,8 @@ export class LayoutComponent implements OnInit {
 
   constructor() { }
 
+ title = 'Finman' as string;
+
   ngOnInit(): void {
   }
 
