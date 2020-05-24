@@ -1,0 +1,10 @@
+.mat-container {
+  position: fixed;
+  width: 250px;
+  height: 92vh;
+}
+
+.with-icons a mat-icon {
+  margin-left: 10px;
+  margin-right: 5px;
+}
