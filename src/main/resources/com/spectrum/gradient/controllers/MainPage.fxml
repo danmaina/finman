@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.spectrum.gradient.controllers.MainPage"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spectrum.gradient.controllers.MainPage">
+   <children>
+      <AnchorPane layoutX="190.0" prefHeight="768.0" prefWidth="834.0" style="-fx-background-color: #3d3d3d;" />
+      <AnchorPane prefHeight="768.0" prefWidth="190.0" style="-fx-background-color: #222;">
+         <children>
+            <Button fx:id="overviewNavButton" layoutX="7.0" layoutY="74.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Overview" textFill="WHITE" />
+            <Button fx:id="budgetNavButton" layoutX="7.0" layoutY="131.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Budget" textFill="WHITE" />
+            <Button fx:id="reportsNavButton" layoutX="6.0" layoutY="187.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Reports" textFill="WHITE" />
+            <Button fx:id="settingsNavButton" layoutX="6.0" layoutY="681.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Settings" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
