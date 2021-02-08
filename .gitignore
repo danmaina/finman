@@ -25,5 +25,5 @@ pnpm-debug.log*
 /dist_electron
 
 .idea/
-.gadle/
-build
+.gradle/
+build/
