@@ -25,7 +25,7 @@
          </VBox.margin>
         </Button>
     </VBox>
-   <StackPane prefHeight="768.0" prefWidth="829.0" style="-fx-background-color: #3d3d3d;" HBox.hgrow="ALWAYS" />
+   <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3d3d3d;" HBox.hgrow="ALWAYS" />
 
 
 
