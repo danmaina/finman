@@ -4,36 +4,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.spectrum.gradient.controllers.MainPage">
+<HBox prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.spectrum.gradient.controllers.MainPage">
 
     <VBox style="-fx-background-color: #222;">
-        <Button fx:id="overviewNavButton" layoutX="7.0" layoutY="74.0" mnemonicParsing="false"
-                onMouseClicked="#showOverviewPane" prefHeight="39.0" prefWidth="175.0"
-                style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Overview" textFill="WHITE">
+        <Button fx:id="overviewNavButton" layoutX="7.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#showOverviewPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Overview" textFill="WHITE">
             <VBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="25.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="budgetNavButton" layoutX="7.0" layoutY="131.0" mnemonicParsing="false"
-                onMouseClicked="#showBudgetPane" prefHeight="39.0" prefWidth="175.0"
-                style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Budget" textFill="WHITE">
+        <Button fx:id="budgetNavButton" layoutX="7.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#showBudgetPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Budget" textFill="WHITE">
             <VBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="reportsNavButton" layoutX="6.0" layoutY="187.0" mnemonicParsing="false"
-                onMouseClicked="#showReportsPane" prefHeight="39.0" prefWidth="175.0"
-                style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Reports" textFill="WHITE">
+      <Button fx:id="accountsNavButton" layoutX="20.0" layoutY="167.0" mnemonicParsing="false" onMouseClicked="#showAccountsPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Accounts" textFill="WHITE">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </Button>
+      <Button fx:id="categoriesNavButton" layoutX="20.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#showCategoriesPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Categories" textFill="WHITE">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </Button>
+      <Button fx:id="payeesNavButton" layoutX="20.0" layoutY="118.0" mnemonicParsing="false" onMouseClicked="#showPayeesPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Payees" textFill="WHITE">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </Button>
+        <Button fx:id="reportsNavButton" layoutX="6.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#showReportsPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Reports" textFill="WHITE">
             <VBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="settingsNavButton" alignment="CENTER" layoutX="6.0" layoutY="681.0" mnemonicParsing="false"
-                onMouseClicked="#showSettingsPane" prefHeight="39.0" prefWidth="175.0"
-                style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Settings" textFill="WHITE">
+        <Button fx:id="settingsNavButton" alignment="CENTER" layoutX="6.0" layoutY="681.0" mnemonicParsing="false" onMouseClicked="#showSettingsPane" prefHeight="39.0" prefWidth="175.0" style="-fx-background-color: #e05; -fx-background-radius: 0;" text="Settings" textFill="WHITE">
             <VBox.margin>
-                <Insets bottom="10.0" left="10.0" right="10.0"/>
+                <Insets bottom="10.0" left="10.0" right="10.0" />
             </VBox.margin>
         </Button>
     </VBox>
@@ -41,24 +47,47 @@
         <children>
             <AnchorPane fx:id="overviewPane" prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Label layoutX="8.0" layoutY="6.0" text="Overview Pane" textFill="WHITE"/>
+               <TableView layoutX="14.0" layoutY="14.0" prefHeight="584.0" prefWidth="439.0" style="-fx-background-color: #4d4d4d;" styleClass="white" AnchorPane.topAnchor="15.0">
+                 <columns>
+                   <TableColumn prefWidth="228.0" style="-fx-background-color: #4d4d4d;" text="Account" />
+                   <TableColumn minWidth="0.0" prefWidth="210.0" style="-fx-background-color: #4d4d4d;" text="Balance" />
+                 </columns>
+               </TableView>
             </children>
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
             </AnchorPane>
-            <AnchorPane fx:id="budgetPane" visible="false" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane fx:id="budgetPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                 <children>
-                    <Label layoutX="8.0" layoutY="6.0" text="Budget Pane" textFill="WHITE"/>
+                    <Label layoutX="8.0" layoutY="6.0" text="Budget Pane" textFill="WHITE" />
                 </children>
             </AnchorPane>
-            <AnchorPane fx:id="reportsPane" visible="false" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane fx:id="reportsPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                 <children>
-                    <Label layoutX="8.0" layoutY="6.0" text="Reports Pane" textFill="WHITE"/>
+                    <Label layoutX="8.0" layoutY="6.0" text="Reports Pane" textFill="WHITE" />
                 </children>
             </AnchorPane>
-            <AnchorPane fx:id="settingsPane" visible="false" prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane fx:id="settingsPane" prefHeight="200.0" prefWidth="200.0" visible="false">
                 <children>
-                    <Label layoutX="8.0" layoutY="6.0" text="Settings Pane" textFill="WHITE"/>
+                    <Label layoutX="8.0" layoutY="6.0" text="Settings Pane" textFill="WHITE" />
                 </children>
             </AnchorPane>
+         <AnchorPane fx:id="accountsPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <children>
+               <Label layoutX="8.0" layoutY="6.0" text="Accounts Pane" textFill="WHITE" />
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="categoriesPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <children>
+               <Label layoutX="8.0" layoutY="6.0" text="Categories Pane" textFill="WHITE" />
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="payeesPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+            <children>
+               <Label layoutX="8.0" layoutY="6.0" text="Payees Pane" textFill="WHITE" />
+            </children>
+         </AnchorPane>
         </children>
     </StackPane>
 
